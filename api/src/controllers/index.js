@@ -59,7 +59,7 @@ const getAllInfo = async () => {
   try {
       const apiInfo = await pokemonApi();
       const dbInfo = await getDbInfo();
-      const infoTotal = [...apiInfo,...dbInfo]
+      const infoTotal = apiInfo.concat(dbInfo)
       //console.log('INFO TOTAL: ', infoTotal)
       return infoTotal;
   } catch(e) {

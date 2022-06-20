@@ -7,24 +7,23 @@ import { useParams } from "react-router-dom";
 import './css/details.css';
 
 
-export default function Detail (props) {
+export default function Detail () {
     const dispatch = useDispatch();
     const params = useParams();
-    const redir = Redirect();
+   
+    
+    useEffect(() => {
+        dispatch(getDetails(params.id))
+    }, [params.id, dispatch]);  
+    
     const myPokemon = useSelector((state) => state.details)
 
     useEffect(() => {
-        dispatch(getDetails(params.id))
-    }, [params.id, dispatch]);
-
-
-    function cleanSubmit (e) {
-        e.preventDefault();
-        dispatch(cleanDetails())
-        redir('/home')
-    
-
-    }
+        return function (){
+          dispatch(cleanDetails())
+        }
+      },[dispatch])
+   
 
 
     return (
@@ -48,7 +47,7 @@ export default function Detail (props) {
                     </div>
                     <div className="btn">
                         <Link to = '/home'>
-                            <button onClick={(e) => cleanSubmit(e)} className='btn_home'>Return to Home</button>    
+                            <button  className='btn_home'>Return to Home</button>    
                         </Link>
                     </div>
                 </div>

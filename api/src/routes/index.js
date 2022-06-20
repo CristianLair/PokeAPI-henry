@@ -78,53 +78,19 @@ router.post('/pokemons', async (req, res) => {
 }  
 });
 
-router.get('/pokemons/:id', async (req, res, next) => {
+router.get('/pokemons/:id', async (req, res) => {
     try {
-        const {id} = req.params;
-        let pokemon;
-        if(typeof id === 'string' && id.length > 8) {
-            const e = await Pokemon.findByPk(id, {include: Type})
-            const pokemon = {
-                id : e.id,
-                name: e.name,
-                hp : e.hp,
-                attack: e.attack,
-                defense: e.defense,
-                speed: e.speed,
-                height: e.height,
-                weight: e.weight,
-                sprite: e.sprite,
-                createdInDb : e.createdInDb,
-                types: e.types.map( t => t.name)
-
-            }
-            return res.send(pokemon)
-
-        }else {
-            const axiosPokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
-            const e = axiosPokemon.data
-            pokemon = {
-                id : e.id,
-                name: e.name,
-                hp : e.stats[0].base_stat,
-                attack: e.stats[1].base_stat,
-                defense: e.stats[2].base_stat,
-                speed: e.stats[5].base_stat,
-                height: e.height,
-                weight: e.weight,
-                sprite: e.sprites.other.dream_world.front_default,
-                createdInDb : false,
-                types: e.types.map(t => t.type.name)
-
-            }
-
-            return res.send(pokemon);
-
+    const id = req.params.id;
+    let pokeTotal = await getAllInfo();
+        if (id) {
+            let pokeId = pokeTotal.filter(p => p.id == id)
+            pokeId.length ?
+            res.status(200).json(pokeId) :
+            res.status(404).send('Pokemon not found')
         }
-        
-    } catch (error) {
-        next(error)
-        
+    }
+    catch(e) {
+        console.log(e)
     }
 })
 

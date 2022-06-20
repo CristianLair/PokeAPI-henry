@@ -1,7 +1,7 @@
 import { Route } from "react-router-dom";
 import LandingPage from './components/landing/LandingPage.jsx'
 import Home from './components/home/Home.jsx';
-import Detail from './components/home/Detail'
+import Detail from './components/home/Detail.jsx'
 import CreatePokemon from './components/home/CreatePokemon.jsx'
 
 

@@ -11,7 +11,7 @@ export default  function CreatePokemon() {
 const dispatch = useDispatch();
 const types = useSelector(state =>state.types )
 const exist = useSelector(state=> state.pokemons)
-const redireccionamiento = Redirect()
+
 
 const [errors, setErrors] = useState({})
 
@@ -110,7 +110,7 @@ function handleSubmit (e) {
     } 
     dispatch(postPokemon(input));
     alert('¡Pokemon Created!')
-    redireccionamiento('/home')
+    Redirect('/home')
     setInput({
         name: "",
         hp: "",

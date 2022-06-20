@@ -3,7 +3,7 @@ import axios from 'axios'
 export function getPokemons(){
    
     return async function(dispatch)  {
-        let result = await axios.get('http://localhost:3001/pokemons')
+        let result = await axios.get('/pokemons')
         return dispatch({
             type: "GET_POKEMONS",
             payload: result.data
@@ -16,7 +16,7 @@ export function getPokemons(){
 export function getTypes(){
     return async function(dispatch){
         try {
-            let result = await axios.get("http://localhost:3001/types")
+            let result = await axios.get("/types")
             return dispatch({
                 type: "GET_TYPES",
                 payload : result.data
@@ -44,7 +44,7 @@ export function filterByTypes(payload){
 
 export function postPokemon(payload){
     return async function(){
-        const info = await axios.post('http://localhost:3001/pokemons', payload);
+        const info = await axios.post('/pokemons', payload);
         return info
     }
 }
@@ -66,7 +66,7 @@ export function ordByStr(payload){
 export function getPokByName(payload){
     return async function(dispatch){
         try {
-            let result =  await axios.get('http://localhost:3001/pokemons?name=' + payload)
+            let result =  await axios.get('/pokemons?name=' + payload)
             return dispatch({
                 type: "GET_BY_NAME",
                 payload: result.data
@@ -81,7 +81,7 @@ export function getPokByName(payload){
 export function getDetails(id){
     return async function(dispatch){
         try {
-            let pokeID = await axios.get('http://localhost:3001/pokemons/' + id)
+            let pokeID = await axios.get("/pokemons/" + id )
             return dispatch({
                 type: "GET_DETAIL",
                 payload: pokeID.data
@@ -93,8 +93,8 @@ export function getDetails(id){
 }
 
 export function cleanDetails(){
-    return{
-        type: "CLEAR_DETAIL",
-        payload : []
-    }
+    return({
+        type: "CLEAN_DETAILS",
+        
+    })
 }

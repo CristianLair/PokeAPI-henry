@@ -32,13 +32,21 @@ switch (action.type) {
                     };
 
     case "FILTER_BY_TYPES":
-        const filterTypes = state.types
-        const type = action.payload === "All" ? filterTypes.filter(pok => pok.types.length > 0) : filterTypes.filter(pokemons => pokemons.types && pokemons.types.map((types)=> types.name.includes(action.payload)))
-
-        return{
+        const filterTypes = state.allPokemons;
+        const type =
+        action.payload === "All"
+            ? filterTypes.filter((pokemon) => pokemon.types.length > 0)
+            : filterTypes.filter(
+                (pokemon) =>
+                pokemon.types &&
+                pokemon.types
+                    .map((types) => types.name)
+                    .includes(action.payload)
+                );
+            return {
             ...state,
-            pokemons : type
-        };
+            pokemons: type,
+            };
 
     case "ORDER_BY_NAME":
         let ord = action.payload === 'asc' ?  state.pokemons.sort(function(a, b) {
@@ -92,10 +100,11 @@ switch (action.type) {
             details: action.payload
         };
 
-    case "CLEAR_DETAIL":
+    case "CLEAN_DETAILS":
 
         return{
-            details:action.payload
+            ...state,
+            details:[]
         }
 
     default:

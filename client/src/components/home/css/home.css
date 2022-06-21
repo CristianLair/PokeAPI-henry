@@ -12,14 +12,14 @@
 }
 
 .loading_title {
-    color: white;
+    color: #ffea00;
     font-size: 60px;
     text-align: center;
     margin-bottom: 0;
 }
 
 .please_reload {
-    color: white;
+    color:#000000;
     margin-top: 8px;
     font-size: 24px;
 }

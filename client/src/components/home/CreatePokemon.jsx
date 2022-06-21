@@ -11,7 +11,7 @@ export default  function CreatePokemon() {
 const dispatch = useDispatch();
 const types = useSelector(state =>state.types )
 const exist = useSelector(state=> state.pokemons)
-
+const pattern = new RegExp('^[A-Z]+$', 'i')
 
 const [errors, setErrors] = useState({})
 
@@ -130,7 +130,7 @@ function validate (input){
     if(!input.name) {
         errors.name = "El nombre es requerido";
     }
-    else if (typeof input.name !== 'string' || input.name.length < 3) {
+    else if (typeof input.name !== 'string' || input.name.length < 3 ) {
         errors.name = 'Nombre demaciado corto o invalido';
     }
     else if (exist.find((p) => p.name.toLowerCase() === input.name.toLowerCase())) {
@@ -182,7 +182,7 @@ return (
             <div>
                 <div>
                     <label>Name: </label>
-                    <input type="text" value={input.name} name='name' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="text" value={input.name}  pattern="^[A-Za-z]+$" name='name' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.name && (
                             <p className='error'>{errors.name}</p>
@@ -191,7 +191,7 @@ return (
                 </div>
                 <div>
                     <label>HP: </label>
-                    <input type="number" value={input.hp} name='hp' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number"  min='0' max='200' value={input.hp} name='hp' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.hp && (
                             <p className='error'>{errors.hp}</p>
@@ -200,7 +200,7 @@ return (
                 </div>
                 <div>
                     <label>Attack: </label>
-                    <input type="number" value={input.attack} name='attack' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number" min='0' max='150' value={input.attack} name='attack' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.attack && (
                             <p className='error'>{errors.attack}</p>
@@ -209,7 +209,7 @@ return (
                 </div>
                 <div>
                     <label>Defense: </label>
-                    <input type="number" value={input.defense} name='defense' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number"  min='0' max='150' value={input.defense} name='defense' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.defense && (
                             <p className='error'>{errors.defense}</p>
@@ -218,7 +218,7 @@ return (
                 </div>
                 <div>
                     <label>Speed: </label>
-                    <input type="number" value={input.speed} name='speed' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number" min='0' max='110' value={input.speed} name='speed' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.speed && (
                             <p className='error'>{errors.speed}</p>
@@ -227,7 +227,7 @@ return (
                 </div>
                 <div>
                     <label>Height: </label>
-                    <input type="number" value={input.height} name='height' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number"  min='0' max='100' value={input.height} name='height' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.height && (
                             <p className='error'>{errors.height}</p>
@@ -236,7 +236,7 @@ return (
                 </div>
                 <div>
                     <label>Weight: </label>
-                    <input type="number" value={input.weight} name='weight' onChange={(e) => handleChange(e)} className='input_form'/>
+                    <input type="number" min='0' max='1000' value={input.weight} name='weight' onChange={(e) => handleChange(e)} className='input_form'/>
                     {
                         errors.weight && (
                             <p className='error'>{errors.weight}</p>

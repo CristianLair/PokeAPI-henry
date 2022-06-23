@@ -11,7 +11,7 @@ export default  function CreatePokemon() {
 const dispatch = useDispatch();
 const types = useSelector(state =>state.types )
 const exist = useSelector(state=> state.pokemons)
-const pattern = new RegExp('^[A-Z]+$', 'i')
+
 
 const [errors, setErrors] = useState({})
 
@@ -108,6 +108,11 @@ function handleSubmit (e) {
     } else if (input.weight < 0 || input.weight > 1000) {
         return alert("Los puntos de peso del pokemon son invalidos")
     } 
+    else if (input.types.length === 0) {
+        return alert( "Debe seleccionar al menos un type de pokemon")
+      } else if (input.types.length > 2) {
+        return alert ("El maximo de types para el pokemon son 2")
+      }
     dispatch(postPokemon(input));
     alert('¡Pokemon Created!')
     Redirect('/home')
@@ -168,6 +173,7 @@ function validate (input){
     } else if (!input.image) {
         errors.image = "Ingrese una imagen, de lo contrario sera creado el pokemon con la imagen por defecto"
     }
+    
     return errors;
 
 }
@@ -262,11 +268,7 @@ return (
                         }
                     </select>
                     
-                    {/* {
-                        errors.types && (
-                            <p className='error'>{errors.types}</p>
-                        )
-                    } */}
+                   
                     {input.types.map(t => 
                     <div className="list_types" key={t}>
                         <p className='type'>- {t}</p>
